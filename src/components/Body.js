@@ -1,6 +1,7 @@
 import SearchBar from "./SearchBar";
 import RestaurantCard from "./RestaurantCard";
 
+import ShimmerUI from "./ShimmerUI";
 import { useState, useEffect } from "react";  //named import
 
 
@@ -27,7 +28,7 @@ const Body = () => {
     }
 
     if(listOfRestaurants.length === 0) {
-        return <h1>Loading...</h1>
+        return <ShimmerUI />
     }
     return (
 
