@@ -27,6 +27,7 @@ const Body = () => {
         console.log(jsonData.products);
     }
 
+    //conditional rendering to show the shimmer UI while the data is being fetched and to show the list of restaurants once the data is fetched
     if(listOfRestaurants.length === 0) {
         return <ShimmerUI />
     }
