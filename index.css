@@ -29,7 +29,7 @@
 
 }
 
-.Search input {
+.search input {
     padding: 5px;
     font-size: 16px;
     border: 1px solid #ccc;
@@ -37,7 +37,7 @@
     width: 600px;
 }
 
-.Search button {
+.search button {
     padding: 5px 10px;
     font-size: 16px;
     background-color: #007bff;
@@ -48,7 +48,7 @@
     width: 100px;
 }
 
-.Search {
+.search {
     display: flex;
     align-items: center;
     gap: 4px;
