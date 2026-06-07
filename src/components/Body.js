@@ -4,6 +4,8 @@ import RestaurantCard from "./RestaurantCard";
 import ShimmerUI from "./ShimmerUI";
 import { useState, useEffect } from "react";  //named import
 
+import { Link } from "react-router-dom";  //named import
+
 
 const Body = () => {
     //useState hook to manage the state of top rated restaurants
@@ -65,7 +67,7 @@ const Body = () => {
             <div className="restaurant-container">
                 {
                     (filteredRestaurants.length > 0)
-                    ?   filteredRestaurants.map((restaurant) => { return <RestaurantCard key={restaurant?.info?.id} resData={restaurant} /> })
+                    ?   filteredRestaurants.map((restaurant) => { return <Link to={`/restaurant/${restaurant?.info?.id}`}> <RestaurantCard key={restaurant?.info?.id} resData={restaurant} /> </Link> })
                     :   <p>No restaurants found.</p>
                 }
             </div>

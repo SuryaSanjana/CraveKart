@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
 import ShimmerUI from "./ShimmerUI";
+import {useParams} from "react-router-dom";
+import { MENU_API_URL } from "../utils/constants";
 
 const RestaurantMenu = () => {
+    const { resId } = useParams();  // Get the restaurant ID from the URL parameters
     const [resInfo, setResInfo] = useState(null);  // State to hold the restaurant information
     const [categoryCards, setCategoryCards] = useState([]);  // State to hold the category cards for the restaurant
     useEffect(() => {
@@ -9,7 +12,8 @@ const RestaurantMenu = () => {
     }, []);  // Empty dependency array to run the effect only once when the component mounts
 
     const fetchMenu = async () => {
-        const apiUrl = "https://www.swiggy.com/mapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=12.9352403&lng=77.624532&restaurantId=14360&catalog_qa=undefined&submitAction=ENTER";
+        //TODO: resolve the 413 error.
+        const apiUrl = "https://www.swiggy.com/mapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=12.9352403&lng=77.624532&restaurantId=10576&catalog_qa=undefined&submitAction=ENTER";  // Construct the API URL using the restaurant ID
         // Prefix the URL with corsproxy.io
         const response = await fetch(
             "https://corsproxy.io/?url=" + encodeURIComponent(apiUrl)
@@ -23,10 +27,6 @@ const RestaurantMenu = () => {
 
         setCategoryCards(allCategoryCards);  // Update the state with the fetched category cards or an empty array if the data is not available
         console.log(allCategoryCards);
-    }
-
-    const menuCategories = () => {
-
     }
     return resInfo ? (
         <div>
