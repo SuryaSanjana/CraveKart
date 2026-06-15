@@ -119,3 +119,11 @@
     position: fixed;
     bottom: 0;
 }
+
+.user-card {
+    border: 1px solid black;
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: start;
+}
