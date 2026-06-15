@@ -2,9 +2,14 @@
 import { LOGO_URL } from "../utils/constants";   //named import
 import { useState } from "react";  //named import
 import { Link } from "react-router-dom";  //named import
+import useOnlineStatus from "../utils/useOnlineStatus";  //custom hook to check the online status of the user
 
 const Header = () =>{
     const [loginState, setLoginState] = useState("Login");
+    const onlineStatus = useOnlineStatus();
+    if (onlineStatus === false) {
+        return <></>
+    }
     return(
         <div id="header" className="header">
             {/* logo */}

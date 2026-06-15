@@ -5,7 +5,7 @@ import ShimmerUI from "./ShimmerUI";
 import { useState, useEffect } from "react";  //named import
 
 import { Link } from "react-router-dom";  //named import
-
+import useOnlineStatus from "../utils/useOnlineStatus";  //custom hook to check the online status of the user
 
 const Body = () => {
     //useState hook to manage the state of top rated restaurants
@@ -32,18 +32,24 @@ const Body = () => {
 
         // Prefix the URL with corsproxy.io
         const response = await fetch(
-        "https://corsproxy.io/?url=" + encodeURIComponent(apiUrl)
+            "https://corsproxy.io/?url=" + encodeURIComponent(apiUrl)
         );
 
         // HTTP request succeeds ✅
         const data = await response.json();
-            
-       
+
+
         const restaurants = data.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
         setListOfRestaurants(restaurants);  // Initialize list of restaurants with the fetched data or an empty array if the data is not available
         setFilteredRestaurants(restaurants);  // Initialize filtered restaurants with all restaurants
         setFilter(false);  //update the filter state to false to indicate that the filter is removed
         console.log(restaurants);
+    }
+
+    const onlineStatus = useOnlineStatus();  // Custom hook to check the online status of the user
+
+    if (onlineStatus === false) {
+        return <h1>🔴 You are offline. Please check your internet connection.</h1>
     }
 
     //conditional rendering to show the shimmer UI while the data is being fetched and to show the list of restaurants once the data is fetched
@@ -60,15 +66,15 @@ const Body = () => {
                     <i className="fas fa-star"></i> Top Rated Restaurants
                 </button>
                 {/*TODO:  Need a better refinement of remove filter */}
-                <button className="remove-filter-btn" onClick={() =>{setFilteredRestaurants(listOfRestaurants); setFilter(false);}} disabled={!filter}>
+                <button className="remove-filter-btn" onClick={() => { setFilteredRestaurants(listOfRestaurants); setFilter(false); }} disabled={!filter}>
                     <i className="fas fa-filter"></i> Remove Filter
                 </button>
             </div>
             <div className="restaurant-container">
                 {
                     (filteredRestaurants.length > 0)
-                    ?   filteredRestaurants.map((restaurant) => { return <Link to={`/restaurant/${restaurant?.info?.id}`}> <RestaurantCard key={restaurant?.info?.id} resData={restaurant} /> </Link> })
-                    :   <p>No restaurants found.</p>
+                        ? filteredRestaurants.map((restaurant) => { return <Link to={`/restaurant/${restaurant?.info?.id}`}> <RestaurantCard key={restaurant?.info?.id} resData={restaurant} /> </Link> })
+                        : <p>No restaurants found.</p>
                 }
             </div>
         </div>

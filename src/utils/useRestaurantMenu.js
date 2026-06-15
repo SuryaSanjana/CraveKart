@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 const useRestaurantMenu = (resId) => {
     const [resInfo, setResInfo] = useState(null);  // State to store restaurant information
 
-    const useEffect= (()=>{
+    useEffect(()=>{
         fetchData();
-    });
+    },[]);
     const fetchData = async () =>{
         const apiUrl = "https://www.swiggy.com/mapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=12.9352403&lng=77.624532&restaurantId=" + resId + "&catalog_qa=undefined&submitAction=ENTER";  // Construct the API URL using the restaurant ID
         // Prefix the URL with corsproxy.io
@@ -16,3 +16,5 @@ const useRestaurantMenu = (resId) => {
     }
     return resInfo;
 }
+
+export default useRestaurantMenu;
