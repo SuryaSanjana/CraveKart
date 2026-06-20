@@ -11,6 +11,11 @@ import Contact from './components/Contact';
 import Error from './components/Error'; 
 import RestaurantMenu from './components/RestaurantMenu';
 
+
+//Implenting Grocer as a lazy loaded component using React.lazy and Suspense
+import { lazy, Suspense } from 'react';
+
+const Grocery = lazy(() => import('./components/Grocery'));  //lazy loading the Grocery component
 const AppLayout = () =>
 (
     <div id="app-layout" className="app-layout">
@@ -44,6 +49,14 @@ const router = createBrowserRouter([
             {
                 path: "/restaurant/:id",
                 element: <RestaurantMenu />
+            },
+            {
+                path: "/grocery",
+                element: (
+                    <Suspense fallback={<div>Loading...</div>}> {/* Suspense component is used to show a fallback UI while the Grocery component is being loaded */}
+                        <Grocery />
+                    </Suspense>
+                )
             }
        ]
     },
