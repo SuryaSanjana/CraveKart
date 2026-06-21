@@ -7,7 +7,7 @@ import ItemsList from "./ItemsList";
 
 const RestaurantMenu = () => {
     const { resId } = useParams();  // Get the restaurant ID from the URL parameters
-
+    
     /** Custom hook to fetch menu data */
     const resData = useRestaurantMenu(resId);
     const resInfo = resData?.cards[2]?.card?.card?.info || null;  // Extract the restaurant information from the API response or set it to null if the data is not available
