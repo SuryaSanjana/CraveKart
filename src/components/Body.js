@@ -1,5 +1,5 @@
 import SearchBar from "./SearchBar";
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, { withPromotedLabel } from "./RestaurantCard";
 
 import ShimmerUI from "./ShimmerUI";
 import { useState, useEffect } from "react";  //named import
@@ -45,6 +45,9 @@ const Body = () => {
         setFilter(false);  //update the filter state to false to indicate that the filter is removed
         console.log(restaurants);
     }
+    //Higher order component for display of promoted
+    //TODO: when such promoted label available in api
+    const RestaurantPromoted = withPromotedLabel(RestaurantCard);
 
     const onlineStatus = useOnlineStatus();  // Custom hook to check the online status of the user
 
@@ -73,7 +76,11 @@ const Body = () => {
             <div className="restaurant-container">
                 {
                     (filteredRestaurants.length > 0)
-                        ? filteredRestaurants.map((restaurant) => { return <Link to={`/restaurant/${restaurant?.info?.id}`}> <RestaurantCard key={restaurant?.info?.id} resData={restaurant} /> </Link> })
+                        ? filteredRestaurants.map((restaurant) => { 
+                            return <Link key={restaurant?.info?.id}  to={`/restaurant/${restaurant?.info?.id}`}>
+                                     <RestaurantCard resData={restaurant} /> 
+                                 </Link> 
+                            })
                         : <p>No restaurants found.</p>
                 }
             </div>
