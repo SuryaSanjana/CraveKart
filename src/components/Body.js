@@ -2,17 +2,18 @@ import SearchBar from "./SearchBar";
 import RestaurantCard, { withPromotedLabel } from "./RestaurantCard";
 
 import ShimmerUI from "./ShimmerUI";
-import { useState, useEffect } from "react";  //named import
+import { useState, useEffect, useContext } from "react";  //named import
 
 import { Link } from "react-router-dom";  //named import
 import useOnlineStatus from "../utils/useOnlineStatus";  //custom hook to check the online status of the user
+import UserContext from "../utils/UserContext";
 
 const Body = () => {
     //useState hook to manage the state of top rated restaurants
     const [listOfRestaurants, setListOfRestaurants] = useState([]);  //initial state is an empty array
     const [filter, setFilter] = useState(false);  //state to manage the filter button click event
     const [filteredRestaurants, setFilteredRestaurants] = useState(listOfRestaurants);  //state to manage the filtered list of restaurants based on the search text
-
+    const {loggedInUser, setUserName} = useContext(UserContext);
     //function to handle the click event of top rated button
     const handleTopRatedClick = () => {
         const filteredList = filteredRestaurants.filter(restaurant => restaurant.info?.avgRating >= 4.0);
@@ -71,7 +72,9 @@ const Body = () => {
                 {/*TODO:  Need a better refinement of remove filter */}
                 <button className="remove-filter-btn" onClick={() => { setFilteredRestaurants(listOfRestaurants); setFilter(false); }} disabled={!filter}>
                     <i className="fas fa-filter"></i> Remove Filter
-                </button>
+                </button>                                        
+                <label> Username:</label>
+                <input className="border-black border" value={loggedInUser} onChange={(e)=> setUserName(e.target.value)} />
             </div>
             <div className="restaurant-container">
                 {
