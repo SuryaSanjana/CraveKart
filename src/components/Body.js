@@ -73,6 +73,9 @@ const Body = () => {
                 <button className="remove-filter-btn" onClick={() => { setFilteredRestaurants(listOfRestaurants); setFilter(false); }} disabled={!filter}>
                     <i className="fas fa-filter"></i> Remove Filter
                 </button>                                        
+               
+            </div>
+            <div>
                 <label> Username:</label>
                 <input className="border-black border" value={loggedInUser} onChange={(e)=> setUserName(e.target.value)} />
             </div>

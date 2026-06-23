@@ -20,11 +20,13 @@ import { lazy, Suspense } from 'react';
 const Grocery = lazy(() => import('./components/Grocery'));  //lazy loading the Grocery component
 const AppLayout = () =>
 {
-    const [userName, setUserName] = useState("");
+    const [userName, setUserName] = useState();
 useEffect(() => {
     //data received from API
-    const name = "Sanjana"
-    setUserName(name);
+    const data = {
+        name: "sanjana"
+    }
+    setUserName(data.name);
 },[]);
 return (
     <div id="app-layout" className="app-layout">
